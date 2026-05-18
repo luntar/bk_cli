@@ -1,3 +1,4 @@
+[![CMake](https://github.com/luntar/bk_cli/actions/workflows/cmake.yml/badge.svg)](https://github.com/luntar/bk_cli/actions/workflows/cmake.yml)
 # bk_cli Quick Start
 
 `bk_cli` is a small C++17 command dispatcher. Drop it into a program when you
