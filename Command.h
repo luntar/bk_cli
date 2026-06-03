@@ -212,6 +212,9 @@ public:
     /** Execute a registered command using a whitespace-separated argument string. */
     std::string execute(const std::string& cmd, const std::string& args);
 
+    /** Execute a registered command from one full input line. */
+    std::string execute_line(const std::string& line);
+
     /**
      * Execute a command from JSON:
      * {"cmd":"some_cmd_name","value":"1 foo 1234 a"}

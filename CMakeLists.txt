@@ -5,6 +5,7 @@ project(bk_cli LANGUAGES CXX)
 add_library(bk_cli_lib
     Command.cpp
     Command_Helpers.cpp
+    Console_Line_Editor.cpp
 )
 
 target_include_directories(bk_cli_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

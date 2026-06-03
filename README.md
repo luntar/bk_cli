@@ -21,6 +21,17 @@ cmake --build build
 
 For single-config generators, the executable may be under `.\build\bk_cli.exe`.
 
+The sample executable starts an interactive prompt:
+
+```text
+bk> status
+{"result":"OK","msg":"running"}
+```
+
+Use the up and down arrow keys to move through command history. The line editor
+also supports backspace, delete, left/right arrows, home, and end. Type `exit`
+or `quit` to leave the prompt.
+
 The GitHub Actions workflow builds the project on Windows and Ubuntu for every
 push and pull request.
 
@@ -47,6 +58,12 @@ cli.add("status", "Report system status", [](bk::args_t) {
 });
 
 auto json = cli.execute("status", "");
+```
+
+You can also execute a full input line:
+
+```cpp
+auto json = cli.execute_line("add 2 3");
 ```
 
 This is useful for production status, debug probes, admin operations, factory

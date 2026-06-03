@@ -376,6 +376,24 @@ std::string Command::execute(const std::string& cmd_str, const std::string& args
     return rtval.to_string();
 }
 
+std::string Command::execute_line(const std::string& line)
+{
+    const auto start = line.find_first_not_of(" \t\r\n");
+    if (start == std::string::npos) {
+        cmd_return_t rtval{ false, "Missing command" };
+        return rtval.to_string();
+    }
+
+    const auto cmd_end = line.find_first_of(" \t\r\n", start);
+    if (cmd_end == std::string::npos) {
+        return execute(line.substr(start), "");
+    }
+
+    const auto args_start = line.find_first_not_of(" \t\r\n", cmd_end);
+    const std::string args = (args_start == std::string::npos) ? std::string{} : line.substr(args_start);
+    return execute(line.substr(start, cmd_end - start), args);
+}
+
 bk::args_t Command::make_args_from_string(const std::string& args, const arg_def_t& def)
 {
     args_t rtval;
