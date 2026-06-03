@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Console_Line_Editor.h"
 
 #include <cstdint>
 #include <iostream>
@@ -53,15 +54,20 @@ int main()
     cli.bind("count", "Get or set the count value", g_count);
     cli.bind("samples", "Display sample values", g_samples);
 
-    std::cout << cli.execute("help", "") << '\n';
-    std::cout << cli.execute("echo", "hello") << '\n';
-    std::cout << cli.execute("status", "") << '\n';
-    std::cout << cli.execute("add", "2 3") << '\n';
-    std::cout << cli.execute("enabled", "") << '\n';
-    std::cout << cli.execute("enabled", "on") << '\n';
-    std::cout << cli.execute("count", "") << '\n';
-    std::cout << cli.execute("count", "42") << '\n';
-    std::cout << cli.execute("samples", "") << '\n';
+    bk::Console_Line_Editor editor;
+
+    std::cout << "Type 'help' for commands or 'exit' to quit.\n";
+    while (auto line = editor.read_line("bk> ")) {
+        if (*line == "exit" || *line == "quit") {
+            break;
+        }
+
+        if (line->find_first_not_of(" \t\r\n") == std::string::npos) {
+            continue;
+        }
+
+        std::cout << cli.execute_line(*line) << '\n';
+    }
 
     return 0;
 }
